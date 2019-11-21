@@ -16,12 +16,18 @@ html, body {
     font-size: large;
 }
 
-a:hover {
+a:hover, .choice:hover {
     color: white;
     font-weight: 500;
 }
 
-a:active {
+a:active, .choice:active {
     color: rgb(230, 201, 178);
     transform: translateY(2px);
+}
+
+.choice {
+    border-radius: 5px;
+    width: 100%;
+    margin: 2px 0;
 }
