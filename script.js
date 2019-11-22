@@ -63,8 +63,7 @@ function checkAnswerFunction(event) {
     var penaltyTag = document.querySelector("#penalty-alert");
     lineTag.setAttribute("style", "display:block");                     //Display the line and the next button after an option has been selected
     nextButtonTag.setAttribute("style", "display:block");
-
-    if(questionList[questionIndex].answer == this.textContent) { //Check if selected answer is the correct answer
+    if(questionList[questionIndex].answer == selectedAnswerTag.textContent.substring(3)) { //Check if selected answer is the correct answer
         score+= 10;                                              //For correct answer add 10 points to score
     }
     else {
