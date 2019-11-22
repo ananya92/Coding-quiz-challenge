@@ -65,9 +65,13 @@ function checkAnswerFunction(event) {
     nextButtonTag.setAttribute("style", "display:block");
     if(questionList[questionIndex].answer == selectedAnswerTag.textContent.substring(3)) { //Check if selected answer is the correct answer
         score+= 10;                                              //For correct answer add 10 points to score
+        answerTag.textContent = "Correct!";
+        answerTag.setAttribute("style", "display:block");         //Display the "Correct!" outcome to user
     }
     else {
         time-= 10;                                              //For incorrect answer, deduct 10 seconds from timer
+        answerTag.textContent = "Incorrect!";   
+        answerTag.setAttribute("style", "display:block");         //Display the "Inorrect!" outcome to user
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:none;")  }, 1000); 
     }
