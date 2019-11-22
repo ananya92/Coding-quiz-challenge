@@ -8,9 +8,22 @@ var option4Tag = document.querySelector("#option4");                   //Select 
 var lineTag = document.querySelector("#line");                         //Select the line tag - initially hidden
 var answerTag = document.querySelector("#answer");                     //Select the answer tag
 var nextButtonTag = document.querySelector("#next");                   //Select the Next button tag
+var timeLeftTag = document.querySelector("#time-left");
 
 var score = 0;
-var time = 100;
+
+var timerInterval;
+function timerFunction() {                              //Timer function to countdown the time
+    var time = parseInt(sessionStorage.getItem("timeLeft"));
+    time--;
+    timeLeftTag.textContent = time.toString();
+    sessionStorage.setItem("timeLeft", time);
+    if(time <= 0) {
+        clearInterval(timerInterval);                   //If timer reaches 0, stop the timer
+        sessionStorage.setItem("timeLeft", 0);          
+        document.location.replace("result-page.html");
+    }
+}
 
 for (var i = 0; i < quizChoiceTag.length; i++) {
     quizChoiceTag[i].addEventListener("click", function() { selectQuizFunction(event)});  //Add click event listener to all the quiz option buttons 
@@ -19,6 +32,8 @@ for (var i = 0; i < quizChoiceTag.length; i++) {
 function selectQuizFunction(event) {
     event.preventDefault();
     var element = event.target;
+    sessionStorage.setItem("timeLeft", 100);  
+    sessionStorage.setItem("score", score);
     sessionStorage.setItem("selectedQuiz", element.textContent);    //Saving the selected quiz in the session storage object
     document.location.replace("question-page.html");                //Replacing the current page with the URL
 };
@@ -46,6 +61,7 @@ function loadQuestion() {
     var index = sessionStorage.getItem("questionIndex");
     questionIndex = (index != null) ? parseInt(index) : 0;   //If the questionIndex has been stored in sessionStorage, retrieve it's value else assign the index to 0 as it is the first question. In this way if the page is refreshed, the progress of the quiz will not be lost and the current question can be loaded back.
     if(questionIndex == 0) {
+        timerInterval = setInterval(timerFunction,1000);    //Start the timer since first question is now being loaded
         sessionStorage.setItem("questionIndex",questionIndex); //Store the questionIndex if the first question is loaded
     }
     //Populating the question and options
@@ -74,7 +90,10 @@ function checkAnswerFunction(event) {
         answerTag.setAttribute("style", "display:block");         //Display the "Correct!" outcome to user
     }
     else {
-        time-= 10;                                              //For incorrect answer, deduct 10 seconds from timer
+        var time = parseInt(timeLeftTag.textContent);
+        time-= 10;  
+        sessionStorage.setItem("timeLeft", time);
+        timeLeftTag.textContent = time.toString();                //For incorrect answer, deduct 10 seconds from timer
         answerTag.textContent = "Incorrect!";   
         answerTag.setAttribute("style", "display:block");         //Display the "Inorrect!" outcome to user
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
@@ -101,6 +120,7 @@ nextButtonTag.addEventListener("click", function(event) {
 
     questionIndex++;
     if(questionIndex >= questionList.length) {
+        var time = parseInt(timeLeftTag.textContent);
         if(time > 0) {
             sessionStorage.setItem("timeLeft", time);
         }
