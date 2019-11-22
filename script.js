@@ -43,6 +43,9 @@ function loadQuestion() {
     if(questionIndex == 0) {
         sessionStorage.setItem("questionIndex",questionIndex); //Store the questionIndex if the first question is loaded
     }
+    else if(questionIndex >= questionList.length) {
+        document.location.replace("result-page.html");                //Reached the end of the questions; redirect to result page
+    }
     //Populating the question and options
     questionTag.textContent = questionList[questionIndex].title;
     option1Tag.textContent = "1. " + questionList[questionIndex].choices[0];

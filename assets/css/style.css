@@ -30,7 +30,7 @@ a:active, .quiz-choice:active {
     width: 100%;
 }
 
-.quiz-choice, .choice, #next {
+.quiz-choice, .choice, #next, #submit {
     border-radius: 5px;
     margin: 2px 0;
 }
@@ -38,10 +38,10 @@ a:active, .quiz-choice:active {
     background-color: white;
     color: black;
 }
-.choice:hover, #next:hover {
+.choice:hover, #next:hover, #submit:hover {
     font-weight: 500;
 }
-.choice:active, #next:active {
+.choice:active, #next:active, #submit:active {
     transform: translateY(2px);
 }
 #next, #penalty-alert {
