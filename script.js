@@ -64,7 +64,7 @@ function checkAnswerFunction(event) {
 
     lineTag.setAttribute("style", "display:block");                     //Display the line and the next button after an option has been selected
     nextButtonTag.setAttribute("style", "display:block");
-    selectedAnswerTag.setAttribute("style", "font-weight:500;")
+    selectedAnswerTag.setAttribute("style", "font-weight:500;");        //Highlight the selected answer
 
     if(questionList[questionIndex].answer == selectedAnswerTag.textContent.substring(3)) { //Check if selected answer is the correct answer
         score+= 10;                                              //For correct answer add 10 points to score
@@ -78,7 +78,25 @@ function checkAnswerFunction(event) {
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:none;")  }, 1000); 
     }
-    for (var i = 0; i < answerChoiceTag.length; i++) {
+    for (var i = 0; i < answerChoiceTag.length; i++) {          //Disable the buttons after an answer has been selected
         answerChoiceTag[i].disabled = true;
     }  
 }
+
+nextButtonTag.addEventListener("click", function(event) {
+    event.preventDefault();
+    var questionIndex = sessionStorage.getItem("questionIndex");
+
+    lineTag.setAttribute("style", "display:none");                     //Remove the line, next button and answer of question since new question will load now
+    nextButtonTag.setAttribute("style", "display:none");
+    answerTag.setAttribute("style", "display:none");         
+
+    for (var i = 0; i < answerChoiceTag.length; i++) { 
+        answerChoiceTag[i].setAttribute("style", "font-weight:normal;");        //Remove highlight from the previous selected answer
+        answerChoiceTag[i].disabled = false;                                    //Enable the buttons for next question
+    }
+
+    questionIndex++;
+    sessionStorage.setItem("questionIndex", questionIndex);
+    loadQuestion();
+});

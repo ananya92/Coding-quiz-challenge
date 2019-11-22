@@ -34,20 +34,19 @@ a:active, .quiz-choice:active {
     border-radius: 5px;
     margin: 2px 0;
 }
-.choice {
+.choice, #penalty-alert {
     background-color: white;
     color: black;
 }
-.choice:hover {
+.choice:hover, #next:hover {
     font-weight: 500;
 }
-.choice:active {
+.choice:active, #next:active {
     transform: translateY(2px);
 }
 #next, #penalty-alert {
     float: right;
     display: none;       /* Hiding the next button when question is displayed and showing it only when an option is clicked */
-    color: black;
 }
 
 #line {
