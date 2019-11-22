@@ -44,11 +44,13 @@ a:active, .quiz-choice:active {
 .choice:active {
     transform: translateY(2px);
 }
-#next {
+#next, #penalty-alert {
     float: right;
     display: none;       /* Hiding the next button when question is displayed and showing it only when an option is clicked */
+    color: black;
 }
 
 #line {
     display: none;
 }
+

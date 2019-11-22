@@ -40,7 +40,9 @@ function loadQuestion() {
     var questionIndex;
     var index = sessionStorage.getItem("questionIndex");
     questionIndex = (index != null) ? parseInt(index) : 0;   //If the questionIndex has been stored in sessionStorage, retrieve it's value else assign the index to 0 as it is the first question. In this way if the page is refreshed, the progress of the quiz will not be lost and the current question can be loaded back.
-
+    if(questionIndex == 0) {
+        sessionStorage.setItem("questionIndex",questionIndex); //Store the questionIndex if the first question is loaded
+    }
     //Populating the question and options
     questionTag.textContent = questionList[questionIndex].title;
     option1Tag.textContent = "1. " + questionList[questionIndex].choices[0];
@@ -58,6 +60,16 @@ function checkAnswerFunction(event) {
     var selectedAnswerTag = event.target;
     var questionList = getSelectedQuiz();
     var questionIndex = sessionStorage.getItem("questionIndex");
+    var penaltyTag = document.querySelector("#penalty-alert");
+    lineTag.setAttribute("style", "display:block");                     //Display the line and the next button after an option has been selected
+    nextButtonTag.setAttribute("style", "display:block");
 
-    
+    if(questionList[questionIndex].answer == this.textContent) { //Check if selected answer is the correct answer
+        score+= 10;                                              //For correct answer add 10 points to score
+    }
+    else {
+        time-= 10;                                              //For incorrect answer, deduct 10 seconds from timer
+        myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
+        myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:none;")  }, 1000); 
+    }
 }
