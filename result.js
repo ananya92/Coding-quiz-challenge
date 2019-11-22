@@ -18,22 +18,32 @@ submitButtonTag.addEventListener("click",function(event) {
     var selectedQuiz = sessionStorage.getItem("selectedQuiz"); //Read the quiz selection stored in the session storage
     if(selectedQuiz == "HTML Quiz") {
         userScoresList = JSON.parse(localStorage.getItem("htmlQuizScores")); //Read the HTML quiz score list
-        (userScoresList != null) ? userScoresList.push(userScore) : userScoresList = [userScore];
+        //If user score list is null then assign this score as its first score else if it is not null then call addInDescendingOrder function to insert this score in its correct order from highest to lowest
+        (userScoresList != null) ? addInDescendingOrder(userScoresList, userScore) : userScoresList = [userScore];
         localStorage.setItem("htmlQuizScores", JSON.stringify(userScoresList));
     }
     else if(selectedQuiz == "CSS Quiz") {
         userScoresList = JSON.parse(localStorage.getItem("cssQuizScores")); //Read the CSS quiz score list
-        (userScoresList != null) ? userScoresList.push(userScore) : userScoresList = [userScore];
+        (userScoresList != null) ? addInDescendingOrder(userScoresList, userScore) : userScoresList = [userScore];
         localStorage.setItem("cssQuizScores", JSON.stringify(userScoresList));
     }
     else if(selectedQuiz == "Javascript Quiz") {
         userScoresList = JSON.parse(localStorage.getItem("javascriptQuizScores")); //Read the Javascript quiz score list
-        (userScoresList != null) ? userScoresList.push(userScore) : userScoresList = [userScore];
+        (userScoresList != null) ? addInDescendingOrder(userScoresList, userScore) : userScoresList = [userScore];
         localStorage.setItem("javascriptQuizScores", JSON.stringify(userScoresList));
     } 
     document.location.replace("leaderboard.html");                //Redirect to leaderboard page
 });                  
-
+function addInDescendingOrder(userScoresList, userScore) {      //this function ensures that new score is added in descending order in the score list
+    var index = 0;
+    for(var i=0; i<userScoresList.length; i++) {
+        if(parseInt(userScoresList[i].score) < parseInt(userScore.score)) {
+            index = i;                                          //when score in the list is less than the current score, then break out of the loop
+            break;
+        }
+    }
+    userScoresList.splice(index,0,userScore);                   //add the new score at this index using splice function
+}
 function loadResult() {
     var finalScore = parseInt(sessionStorage.getItem("score")) + parseInt(sessionStorage.getItem("timeLeft"));
     finalScoreTag.textContent = finalScore.toString();         //Set the final score by retriving it from session storage
@@ -57,3 +67,4 @@ function fillScores(userScores, divTag) {
         divTag.appendChild(pTag);                                  //append the p tag to the highscore div tag
     }
 }
+
