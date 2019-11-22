@@ -61,8 +61,11 @@ function checkAnswerFunction(event) {
     var questionList = getSelectedQuiz();
     var questionIndex = sessionStorage.getItem("questionIndex");
     var penaltyTag = document.querySelector("#penalty-alert");
+
     lineTag.setAttribute("style", "display:block");                     //Display the line and the next button after an option has been selected
     nextButtonTag.setAttribute("style", "display:block");
+    selectedAnswerTag.setAttribute("style", "font-weight:500;")
+
     if(questionList[questionIndex].answer == selectedAnswerTag.textContent.substring(3)) { //Check if selected answer is the correct answer
         score+= 10;                                              //For correct answer add 10 points to score
         answerTag.textContent = "Correct!";
@@ -75,4 +78,7 @@ function checkAnswerFunction(event) {
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:none;")  }, 1000); 
     }
+    for (var i = 0; i < answerChoiceTag.length; i++) {
+        answerChoiceTag[i].disabled = true;
+    }  
 }
