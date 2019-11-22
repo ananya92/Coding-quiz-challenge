@@ -38,3 +38,22 @@ function loadResult() {
     var finalScore = parseInt(sessionStorage.getItem("score")) + parseInt(sessionStorage.getItem("timeLeft"));
     finalScoreTag.textContent = finalScore.toString();         //Set the final score by retriving it from session storage
 }
+
+function fillLeaderboard() {
+    var htmlScores = JSON.parse(localStorage.getItem("htmlQuizScores"));  //Read all the html scores stored in browser's local storage
+    fillScores(htmlScores, htmlScoreDivTag);
+    var cssScores = JSON.parse(localStorage.getItem("cssQuizScores"));  //Read all the html scores stored in browser's local storage
+    fillScores(cssScores, cssScoreDivTag);
+    var javascriptScores = JSON.parse(localStorage.getItem("javascriptQuizScores"));  //Read all the html scores stored in browser's local storage
+    fillScores(javascriptScores, javascriptScoreDivTag);
+}
+function fillScores(userScores, divTag) {
+    for(var i = 0; i<userScores.length; i++) {                          
+        var username = userScores[i].name;
+        var score = userScores[i].score;
+        var pTag = document.createElement("p");                             //Create new p tag and assign it the user's name and score
+        pTag.textContent = username + " - " + score;
+        pTag.setAttribute("style","background-color: #FED8B1; margin: 5px 0;");
+        divTag.appendChild(pTag);                                  //append the p tag to the highscore div tag
+    }
+}
