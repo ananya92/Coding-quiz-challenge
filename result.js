@@ -1,6 +1,7 @@
 var finalScoreTag = document.querySelector("#final-score");                 //Select the final score tag
 var userNameTag = document.querySelector("#user-name");                     //Select the username tag
 var submitButtonTag = document.querySelector("#submit");                    //Select the Submit button tag
+var timeLeftTag = document.querySelector("#time-left");                     //Select the time left tag
 
 submitButtonTag.addEventListener("click",function(event) {
     //Store the username and score in local storage
@@ -57,6 +58,8 @@ function addInDescendingOrder(userScoresList, userScore) {      //this function 
 }
 
 function loadResult() {
-    var finalScore = parseInt(sessionStorage.getItem("score")) + parseInt(sessionStorage.getItem("timeLeft"));
+    var timeLeft = parseInt(sessionStorage.getItem("timeLeft"));
+    var finalScore = parseInt(sessionStorage.getItem("score")) + timeLeft;
+    timeLeftTag.textContent = timeLeft.toString();
     finalScoreTag.textContent = finalScore.toString();         //Set the final score by retriving it from session storage
 }
