@@ -30,7 +30,7 @@ a:active, .quiz-choice:active {
     width: 100%;
 }
 
-.quiz-choice, .choice, #next, #submit {
+.quiz-choice, .choice, #next, #submit, #goback, #clear-highscores {
     border-radius: 5px;
     margin: 2px 0;
 }
@@ -38,10 +38,10 @@ a:active, .quiz-choice:active {
     background-color: white;
     color: black;
 }
-.choice:hover, #next:hover, #submit:hover {
+.choice:hover, #next:hover, #submit:hover, #goback:hover, #clear-highscores:hover {
     font-weight: 500;
 }
-.choice:active, #next:active, #submit:active {
+.choice:active, #next:active, #submit:active, #goback:active, #clear-highscores:active {
     transform: translateY(2px);
 }
 #next, #penalty-alert {

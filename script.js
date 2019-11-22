@@ -8,19 +8,24 @@ var option4Tag = document.querySelector("#option4");                   //Select 
 var lineTag = document.querySelector("#line");                         //Select the line tag - initially hidden
 var answerTag = document.querySelector("#answer");                     //Select the answer tag
 var nextButtonTag = document.querySelector("#next");                   //Select the Next button tag
+
 var score = 0;
 var time = 100;
 
 for (var i = 0; i < quizChoiceTag.length; i++) {
     quizChoiceTag[i].addEventListener("click", function() { selectQuizFunction(event)});  //Add click event listener to all the quiz option buttons 
 }  
-    
+
 function selectQuizFunction(event) {
     event.preventDefault();
     var element = event.target;
     sessionStorage.setItem("selectedQuiz", element.textContent);    //Saving the selected quiz in the session storage object
     document.location.replace("question-page.html");                //Replacing the current page with the URL
 };
+
+for (var i = 0; i < answerChoiceTag.length; i++) {
+    answerChoiceTag[i].addEventListener("click", function() { checkAnswerFunction(event)});  //Add click event listener to all the answer option buttons 
+}  
 function getSelectedQuiz() {
     var questionList;
     var selectedQuiz = sessionStorage.getItem("selectedQuiz"); //Read the quiz selection stored in the session storage
@@ -43,9 +48,6 @@ function loadQuestion() {
     if(questionIndex == 0) {
         sessionStorage.setItem("questionIndex",questionIndex); //Store the questionIndex if the first question is loaded
     }
-    else if(questionIndex >= questionList.length) {
-        document.location.replace("result-page.html");                //Reached the end of the questions; redirect to result page
-    }
     //Populating the question and options
     questionTag.textContent = questionList[questionIndex].title;
     option1Tag.textContent = "1. " + questionList[questionIndex].choices[0];
@@ -53,10 +55,6 @@ function loadQuestion() {
     option3Tag.textContent = "3. " + questionList[questionIndex].choices[2];
     option4Tag.textContent = "4. " + questionList[questionIndex].choices[3];
 }
-
-for (var i = 0; i < answerChoiceTag.length; i++) {
-    answerChoiceTag[i].addEventListener("click", function() { checkAnswerFunction(event)});  //Add click event listener to all the answer option buttons 
-}  
 
 function checkAnswerFunction(event) {
     event.preventDefault();
@@ -71,6 +69,7 @@ function checkAnswerFunction(event) {
 
     if(questionList[questionIndex].answer == selectedAnswerTag.textContent.substring(3)) { //Check if selected answer is the correct answer
         score+= 10;                                              //For correct answer add 10 points to score
+        sessionStorage.setItem("score", score);
         answerTag.textContent = "Correct!";
         answerTag.setAttribute("style", "display:block");         //Display the "Correct!" outcome to user
     }
@@ -89,6 +88,7 @@ function checkAnswerFunction(event) {
 nextButtonTag.addEventListener("click", function(event) {
     event.preventDefault();
     var questionIndex = sessionStorage.getItem("questionIndex");
+    var questionList = getSelectedQuiz();
 
     lineTag.setAttribute("style", "display:none");                     //Remove the line, next button and answer of question since new question will load now
     nextButtonTag.setAttribute("style", "display:none");
@@ -100,6 +100,12 @@ nextButtonTag.addEventListener("click", function(event) {
     }
 
     questionIndex++;
+    if(questionIndex >= questionList.length) {
+        if(time > 0) {
+            sessionStorage.setItem("timeLeft", time);
+        }
+        document.location.replace("result-page.html");                //Reached the end of the questions; redirect to result page
+    }
     sessionStorage.setItem("questionIndex", questionIndex);
     loadQuestion();
 });
