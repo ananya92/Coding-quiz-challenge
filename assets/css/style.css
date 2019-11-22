@@ -16,18 +16,39 @@ html, body {
     font-size: large;
 }
 
-a:hover, .choice:hover {
+a:hover, .quiz-choice:hover {
     color: white;
     font-weight: 500;
 }
 
-a:active, .choice:active {
+a:active, .quiz-choice:active {
     color: rgb(230, 201, 178);
     transform: translateY(2px);
 }
 
-.choice {
-    border-radius: 5px;
+.full-width {
     width: 100%;
+}
+
+.quiz-choice, .choice, #next {
+    border-radius: 5px;
     margin: 2px 0;
+}
+.choice {
+    background-color: white;
+    color: black;
+}
+.choice:hover {
+    font-weight: 500;
+}
+.choice:active {
+    transform: translateY(2px);
+}
+#next {
+    float: right;
+    display: none;       /* Hiding the next button when question is displayed and showing it only when an option is clicked */
+}
+
+#line {
+    display: none;
 }
