@@ -38,7 +38,13 @@ submitButtonTag.addEventListener("click",function(event) {
     }
     else if(selectedQuiz == "Javascript Quiz") {
         userScoresList = JSON.parse(localStorage.getItem("javascriptQuizScores")); //Read the Javascript quiz score list
-    
+        if(userScoresList != null) {
+            addInDescendingOrder(userScoresList, userScore);                //If the score list is not null, then add the new score in the descending order in the list
+        }
+        else {
+            userScoresList = [];                                           //If score list is null, then push this score as the first score
+            userScoresList.push(userScore);
+        }
         localStorage.setItem("javascriptQuizScores", JSON.stringify(userScoresList));
     } 
     document.location.replace("leaderboard.html");                //Redirect to leaderboard page
