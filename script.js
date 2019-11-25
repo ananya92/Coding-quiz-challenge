@@ -90,7 +90,7 @@ function checkAnswerFunction(event) {
         sessionStorage.setItem("score", score);
         answerTag.textContent = "Correct!";
         answerTag.setAttribute("style", "display:block");         //Display the "Correct!" outcome to user
-        selectedAnswerTag.setAttribute("style","background-color:#90EE90");
+        selectedAnswerTag.setAttribute("style","background-color:#90EE90"); //Indicate that selected choice is correct by making the button light green
     }
     else {
         var time = parseInt(sessionStorage.getItem("timeLeft"));
@@ -98,9 +98,25 @@ function checkAnswerFunction(event) {
         time-= 10;  
         sessionStorage.setItem("timeLeft", time);
         timeLeftTag.textContent = time.toString();                //For incorrect answer, deduct 10 seconds from timer
-        selectedAnswerTag.setAttribute("style","background-color:#FFCCCB");
+        selectedAnswerTag.setAttribute("style","background-color:#FFCCCB");     //Indicate that selected choice is incorrect by making the button light red
         answerTag.textContent = "Incorrect!";   
         answerTag.setAttribute("style", "display:block");         //Display the "Inorrect!" outcome to user
+        
+        for(var i=0; i<4; i++) {                                   //Indicate the correct answer by making it green
+            if(questionList[questionIndex].answer === option1Tag.textContent.substring(3)) {
+                option1Tag.setAttribute("style","background-color:#90EE90");
+            }
+            else if(questionList[questionIndex].answer === option2Tag.textContent.substring(3)) {
+                option2Tag.setAttribute("style","background-color:#90EE90");
+            }
+            else if(questionList[questionIndex].answer === option3Tag.textContent.substring(3)) {
+                option3Tag.setAttribute("style","background-color:#90EE90");
+            }
+            else if(questionList[questionIndex].answer === option4Tag.textContent.substring(3)) {
+                option4Tag.setAttribute("style","background-color:#90EE90");
+            }
+        }
+
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:none;")  }, 1000); 
     }
