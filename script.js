@@ -59,8 +59,10 @@ function loadQuestion() {
     var questionList = getSelectedQuiz();
     var questionIndex;
     var index = sessionStorage.getItem("questionIndex");
+    var time = parseInt(sessionStorage.getItem("timeLeft"));    //If page is refreshed, set the time back to the previously stored time in session storage object
+    timeLeftTag.textContent = time.toString();
     questionIndex = (index != null) ? parseInt(index) : 0;   //If the questionIndex has been stored in sessionStorage, retrieve it's value else assign the index to 0 as it is the first question. In this way if the page is refreshed, the progress of the quiz will not be lost and the current question can be loaded back.
-    if(questionIndex == 0) {
+    if((questionIndex == 0) || (typeof timerInterval === 'undefined')) {    //Adding condition to check if timerInterval is undefined to handle the scenario if page is refreshed. In this case the timerInterval will become undefined. we want to resume the countdown from same place, hence, starting the timer again.
         timerInterval = setInterval(timerFunction,1000);    //Start the timer since first question is now being loaded
         sessionStorage.setItem("questionIndex",questionIndex); //Store the questionIndex if the first question is loaded
     }
