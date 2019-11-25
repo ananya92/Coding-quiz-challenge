@@ -6,8 +6,12 @@ var timeLeftTag = document.querySelector("#time-left");                     //Se
 submitButtonTag.addEventListener("click",function(event) {
     //Store the username and score in local storage
     event.preventDefault();
+    var name = userNameTag.value;
+    if(name === "") {
+        name = "Player";
+    }
     var userScore = {
-        "name" : userNameTag.value,
+        "name" : name,
         "score": finalScoreTag.textContent
     };
     var userScoresList;
