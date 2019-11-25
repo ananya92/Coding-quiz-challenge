@@ -20,7 +20,7 @@ function timerFunction() {                              //Timer function to coun
     sessionStorage.setItem("timeLeft", time);
     if(time <= 0) {
         clearInterval(timerInterval);                   //If timer reaches 0, stop the timer
-        sessionStorage.setItem("timeLeft", 0);          
+        sessionStorage.setItem("timeLeft", 0);
         document.location.replace("result-page.html");
     }
 }
@@ -88,12 +88,15 @@ function checkAnswerFunction(event) {
         sessionStorage.setItem("score", score);
         answerTag.textContent = "Correct!";
         answerTag.setAttribute("style", "display:block");         //Display the "Correct!" outcome to user
+        selectedAnswerTag.setAttribute("style","background-color:#90EE90");
     }
     else {
-        var time = parseInt(timeLeftTag.textContent);
+        var time = parseInt(sessionStorage.getItem("timeLeft"));
+        var answer = questionList[questionIndex].answer;
         time-= 10;  
         sessionStorage.setItem("timeLeft", time);
         timeLeftTag.textContent = time.toString();                //For incorrect answer, deduct 10 seconds from timer
+        selectedAnswerTag.setAttribute("style","background-color:#FFCCCB");
         answerTag.textContent = "Incorrect!";   
         answerTag.setAttribute("style", "display:block");         //Display the "Inorrect!" outcome to user
         myVar = setTimeout(function(){ penaltyTag.setAttribute("style", "display:block;")  }, 1);  //display the penalty span tag for 2 seconds alerting the user that time penalty has occured
