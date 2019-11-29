@@ -3,7 +3,7 @@ Timed quizzes with multiple-choice questions based on coding fundamentals. The a
 
 * Application is responsive and adapts to multiple screen sizes.
 
-# Deployed application URL
+## Deployed application URL
 https://ananya92.github.io/Coding-quiz-challenge/
 
 * Play proceeds as follows:
