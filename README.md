@@ -17,3 +17,10 @@ https://ananya92.github.io/Coding-quiz-challenge/
   * When time runs out and/or all questions are answered, the user is presented with their final score and asked to enter their initials. Their final score and initials are then displayed on the Leaderboard along with the previous play history. 
 
   * The clear button clears the play history while back button takes the user back to the homepage and given option to play the quizzes again.
+
+## Application Screenshots
+![Project Snapshot](https://github.com/ananya92/My-Portfolio/blob/master/src/components/projects/img/pr10_1.PNG)
+***
+![Project Snapshot](https://github.com/ananya92/My-Portfolio/blob/master/src/components/projects/img/pr10_2.PNG)
+***
+![Project Snapshot](https://github.com/ananya92/My-Portfolio/blob/master/src/components/projects/img/pr10_3.PNG)
